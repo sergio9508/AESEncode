@@ -1,0 +1,44 @@
+<html>
+<head>
+
+
+
+</head>
+<body>
+	Generate: <br/>
+	<textarea id="txtData" cols="40" rows="10"></textarea>
+	<input type="submit" onclick="Generated()" value="Generate" id="btnSend">
+	<br/>
+	Result:<br/>
+	<textarea id="txtResult" cols="40" rows="10"></textarea>
+
+
+
+
+<script type="text/javascript" src="aes.js"></script>
+	<script type="text/javascript">
+
+		var Encrypted = function  (url) {
+			var code='8686868686868686';
+			var key = CryptoJS.enc.Utf8.parse(code);  
+            var iv = CryptoJS.enc.Utf8.parse(code);  
+			var encryptedUrl = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(url), key,  
+            {  
+                keySize: 128 / 8,  
+                iv: iv,  
+                mode: CryptoJS.mode.CBC,  
+                padding: CryptoJS.pad.Pkcs7  
+            });
+           return encodeURIComponent(encryptedUrl.toString());
+	  }  
+	  function Generated(){
+	  	document.getElementById("txtResult").value="";
+	  	document.getElementById('txtResult').value = Encrypted(document.getElementById('txtData').value);
+	  }
+	  document.getElementById("txtResult").readOnly = true;
+
+	  //http://localhost:49524/Transaction.svc/SendOrder?key=ym9mBO0S%2BNY0UNovt0oKBYa0SzBPdAK8qZw7aAvLz8k%3D
+	  //https://www.oisimobile.com/OISWC/Transaction.svc/SendOrder?key=ym9mBO0S%2BNY0UNovt0oKBYa0SzBPdAK8qZw7aAvLz8k%3D
+	</script>
+</body>
+</html>
